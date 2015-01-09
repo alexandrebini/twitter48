@@ -7,11 +7,11 @@
     rootPath: ->
       @urlFor '/'
 
-    phrasePath: (id) ->
-      "/#{ id }/tasks/"
+    timelinePath: (screnName) ->
+      @urlFor "/timeline/#{ screnName }/"
 
-    taskPath: (phraseId, taskId) ->
-      "#{ phraseId }/tasks/#{ taskId }/managers/"
+    followersMatcherPath: (screenNames) ->
+      @urlFor "/followers-matcher/#{ screenNames.join('/') }/"
 
     urlFor: (route) ->
       Modules.UrlHelper.getInstance().urlFor route

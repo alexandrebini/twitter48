@@ -11,22 +11,36 @@ describe User do
     build(:user, url: 'http://google.com').valid?.must_equal true
   end
 
-  it 'have a timeline', vcr: { match_requests_on: [:path] } do
-    user = build(:user)
-    user.must_respond_to :timeline
-    user.timeline.must_be_instance_of Timeline
+  it 'have a timeline' do
+    VCR.use_cassette('timeline') do
+      user = build(:user)
+      user.must_respond_to :timeline
+      user.timeline.must_be_instance_of Timeline
+    end
+  end
+
+  it 'have followers' do
+    VCR.use_cassette('followers') do
+      user = build(:user)
+      user.must_respond_to :followers
+      user.followers.must_be_instance_of Followers
+    end
   end
 
   describe 'class methods' do
-    it '#find', vcr: { match_requests_on: [:path] } do
-      User.must_respond_to :find
-      User.find(build(:user).screen_name).must_be_instance_of User
+    it '#find' do
+      VCR.use_cassette('user') do
+        User.must_respond_to :find
+        User.find(build(:user).screen_name).must_be_instance_of User
+      end
     end
 
-    it '#from_client', vcr: { match_requests_on: [:path] }  do
-      twiter_user = TwitterClient.user(build(:user).screen_name)
-      User.must_respond_to :from_client
-      User.from_client(twiter_user).must_be_instance_of User
+    it '#from_client' do
+      VCR.use_cassette('user') do
+        twiter_user = TwitterClient.user(build(:user).screen_name)
+        User.must_respond_to :from_client
+        User.from_client(twiter_user).must_be_instance_of User
+      end
     end
   end
 end
