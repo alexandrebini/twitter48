@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-gem 'active_model_serializers', '0.9.2'
+gem 'active_model_serializers', '0.9.1'
 gem 'coffee-rails', '4.1.0'
 gem 'figaro', '1.0.0'
 gem 'haml-rails', '0.6.0'
@@ -37,8 +37,8 @@ group :test do
   gem 'guard-migrate', '1.2.1'
   gem 'guard-minitest', '2.3.2'
   gem 'minitest', '5.5.0'
+  gem 'minitest-rails', '2.1.1'
   gem 'minitest-reporters', '1.0.8'
-  gem 'minitest-vcr', '1.2.2'
   gem 'terminal-notifier-guard', '1.6.4'
   gem 'vcr', '2.9.3'
   gem 'webmock', '1.20.4'

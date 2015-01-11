@@ -1,5 +1,6 @@
 //= require jquery
 //= require underscore
+//= require bootstrap
 //= require backbone
 //= require backbone.babysitter
 //= require backbone.wreqr

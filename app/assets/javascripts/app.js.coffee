@@ -2,10 +2,11 @@
   App = new Marionette.Application
 
   App.addRegions
-    someRegion: '.some-region'
+    timelineRegion: '.timeline-region'
+    followersMatcherRegion: '.followers-matcher-region'
 
   App.addInitializer ->
-    App.module('SomeApp').start()
+    App.module('UsersApp').start()
 
   App.on 'start', ->
     @startHistory()
