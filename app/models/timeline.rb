@@ -1,7 +1,7 @@
 class Timeline < Array
   class << self
-    def find(username)
-      twitter_timeline = TwitterClient.user_timeline(username)
+    def find(screen_name)
+      twitter_timeline = TwitterClient.user_timeline(screen_name)
       self.from_client twitter_timeline
     rescue Twitter::Error
       nil

@@ -1,5 +1,7 @@
 class Tweet
   include ActiveModel::Model
+  include ActiveModel::Serialization
+
   attr_accessor :user, :full_text, :url
 
   validates :user, presence: true

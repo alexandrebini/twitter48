@@ -1,0 +1,5 @@
+%form.form-inline
+  .form-group
+    %input.first-user.form-control{ type: 'text', placeholder: 'Enter a twitter username' }
+    %input.second-user.form-control{ type: 'text', placeholder: 'Enter a twitter username' }
+    %button.btn.btn-primary{ type: 'submit' } Submit

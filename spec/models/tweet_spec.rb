@@ -17,10 +17,12 @@ describe Tweet do
   end
 
   describe 'class methods' do
-    it '#from_client', vcr: { match_requests_on: [:path] }  do
-      twiter_tweet = TwitterClient.user_timeline('alexandrebini').first
-      Tweet.must_respond_to :from_client
-      Tweet.from_client(twiter_tweet).must_be_instance_of Tweet
+    it '#from_client' do
+      VCR.use_cassette('timeline') do
+        twiter_tweet = TwitterClient.user_timeline('alexandrebini').first
+        Tweet.must_respond_to :from_client
+        Tweet.from_client(twiter_tweet).must_be_instance_of Tweet
+      end
     end
   end
 end
