@@ -29,4 +29,4 @@
 
   App.vent.on 'visit:followers-matcher', (screenNames) ->
     App.vent.trigger 'visit', App.Modules.Routes.getInstance().followersMatcherPath(screenNames)
-    API.followersMatcher(screenNames[0], )
+    API.followersMatcher(screenNames)

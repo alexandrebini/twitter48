@@ -20,7 +20,7 @@ class Followers < Array
         TwitterClient.follower_ids(screen_name).attrs[:ids]
       end
       common_ids = follower_ids.inject(:&).first(limit)
-      TwitterClient.users(common_ids).map do |twitter_user|
+      TwitterClient.users(common_ids).to_a.map do |twitter_user|
         User.from_client(twitter_user)
       end
     end
