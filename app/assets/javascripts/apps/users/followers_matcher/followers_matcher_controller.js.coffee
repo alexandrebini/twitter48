@@ -12,7 +12,7 @@
     formRegion: ->
       formView = @getFormView()
       @listenTo formView, 'submit:form', (screenNames) ->
-        App.vent.trigger 'visit:timeline', screenNames
+        App.vent.trigger 'visit:followers-matcher', screenNames
       @layout.formRegion.show formView
 
     followersRegion: (followers) ->

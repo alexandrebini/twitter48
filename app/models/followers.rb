@@ -15,9 +15,14 @@ class Followers < Array
       end
     end
 
-    def in_common(screen_names)
-      followers = screen_names.map{ |screen_name| self.find(screen_name) }
-      followers.inject(:&)
+    def in_common(screen_names, limit: 50)
+      follower_ids = screen_names.map do |screen_name|
+        TwitterClient.follower_ids(screen_name).attrs[:ids]
+      end
+      common_ids = follower_ids.inject(:&).first(limit)
+      TwitterClient.users(common_ids).map do |twitter_user|
+        User.from_client(twitter_user)
+      end
     end
   end
 end

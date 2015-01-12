@@ -22,19 +22,17 @@ describe Followers do
     end
 
     it '#in_common' do
-      skip 'vcr is not working properly'
       screen_names = %w(dhh wycats josevalim)
 
       VCR.use_cassette('common_followers', { match_requests_on: [:uri_without_cursor] }) do
         users = screen_names.map do |screen_name|
-          TwitterClient.followers(screen_name)
+          TwitterClient.follower_ids(screen_name)
         end
-      end
 
-      VCR.use_cassette('common_followers', { match_requests_on: [:uri_without_cursor] }) do
         Followers.must_respond_to :in_common
         in_common = Followers.in_common(screen_names: screen_names)
         in_common.must_be_kind_of Enumerable
+        in_common.size.wont_equal 0
       end
     end
   end
