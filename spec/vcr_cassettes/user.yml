@@ -84,11 +84,6 @@ http_interactions:
       - application/json
       User-Agent:
       - TwitterRubyGem/5.13.0
-      Authorization:
-      - OAuth oauth_consumer_key="token", oauth_nonce="token",
-        oauth_signature="token%3D", oauth_signature_method="HMAC-SHA1",
-        oauth_timestamp="token", oauth_token="token-token",
-        oauth_version="1.0"
   response:
     status:
       code: 200

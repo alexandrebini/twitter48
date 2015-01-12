@@ -1,7 +1,9 @@
 @Tweet48.module 'Entities', (Entities, App, Backbone, Marionette, $, _) ->
 
+  class Entities.Follower extends Backbone.Model
+
   class Entities.Followers extends Backbone.Collection
-    model: Entities.User
+    model: Entities.Follower
     url: '/api/followers.json'
 
   API =
