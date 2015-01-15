@@ -1,7 +1,9 @@
 class Timeline < Array
   class << self
     def find(screen_name)
-      twitter_timeline = TwitterClient.with_rate_limit(:user_timeline, screen_name)
+      twitter_timeline = TwitterClient.with_rate_limit do |client|
+        client.user_timeline(screen_name)
+      end
       self.from_client twitter_timeline
     rescue Twitter::Error
       nil

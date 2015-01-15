@@ -2,11 +2,11 @@ class TwitterClient
   MAX_ATTEMPTS = 3
 
   class << self
-    def with_rate_limit(method, *args)
+    def with_rate_limit(&block)
       attempts = 0
       begin
         attempts += 1
-        client.send(method, *args)
+        block.call(client)
       rescue Twitter::Error::TooManyRequests => error
         puts "Wait more #{ error.rate_limit.reset_in } seconds"
         if attempts < MAX_ATTEMPTS
@@ -23,6 +23,10 @@ class TwitterClient
         config.access_token = ENV['TWITTER_OAUTH_TOKEN']
         config.access_token_secret = ENV['TWITTER_OAUTH_TOKEN_SECRET']
       end
+    end
+
+    def method_missing(method, *args)
+      client.send(method, *args)
     end
   end
 end

@@ -21,7 +21,9 @@ class User
 
   class << self
     def find(screen_name)
-      twitter_user = TwitterClient.with_rate_limit(:user, screen_name)
+      twitter_user = TwitterClient.with_rate_limit do |client|
+        client.user(screen_name)
+      end
       self.from_client twitter_user
     rescue Twitter::Error
       nil
