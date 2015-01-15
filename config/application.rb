@@ -7,5 +7,6 @@ Bundler.require(*Rails.groups)
 
 module Twitter48
   class Application < Rails::Application
+    require_relative '../lib/twitter_client.rb'
   end
 end
