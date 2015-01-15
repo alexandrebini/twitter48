@@ -15,7 +15,7 @@ class Followers < Array
       end
     end
 
-    def in_common(screen_names, limit: 50)
+    def in_common(screen_names, limit: 20)
       follower_ids = screen_names.map do |screen_name|
         TwitterClient.follower_ids(screen_name).attrs[:ids]
       end
