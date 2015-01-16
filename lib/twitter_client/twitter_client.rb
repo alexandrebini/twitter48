@@ -8,7 +8,7 @@ module TwitterClient
       attempts = 0
       begin
         attempts += 1
-        prepare_to_call
+        puts "Current Client: #{ Token.current.consumer_key }"
         block.call(client)
       rescue Twitter::Error::TooManyRequests => error
         on_call_error(error)
@@ -26,9 +26,13 @@ module TwitterClient
     end
 
     def on_call_error(error)
-      Token.current.rate_limit_reset_in = rate_limit_reset_in
+      Token.current.rate_limit_reset_in = error.rate_limit.reset_in
       Token.current.last_call_at = Time.now
       Token.cycle!
+
+      Token.all.each do |r|
+        puts "  #{ r.consumer_key } #{ r.ready_in }"
+      end
 
       unless Token.current.ready?
         puts "waiting #{ Token.current.ready_in } seconds"

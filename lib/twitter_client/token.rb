@@ -24,10 +24,7 @@ module TwitterClient
 
     class << self
       def cycle!
-        puts "\n## cycle token"
-        p 'current', @current.consumer_key, @current.ready_in
-        p 'next', self.next.consumer_key, self.next.ready_in
-
+        puts "\n## cycle token: #{ @current.consumer_key } => #{ self.next.consumer_key }"
         @current = self.next
       end
 
