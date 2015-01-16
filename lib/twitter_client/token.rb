@@ -1,5 +1,5 @@
 module TwitterClient
-  NUMBER_OF_APPS = 3
+  NUMBER_OF_APPS = 4
 
   class Token
     attr_accessor :consumer_key, :consumer_secret, :access_token,
@@ -24,6 +24,7 @@ module TwitterClient
 
     class << self
       def cycle!
+        puts "\n## cycle token: #{ @current.consumer_key } => #{ self.next.consumer_key }"
         @current = self.next
       end
 

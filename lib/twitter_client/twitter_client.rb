@@ -11,7 +11,11 @@ module TwitterClient
         block.call(client)
       rescue Twitter::Error::TooManyRequests => error
         on_call_error(error)
-        retry if attempts < MAX_ATTEMPTS
+        if attempts < MAX_ATTEMPTS
+          retry
+        else
+          puts "max attempts reached"
+        end
       end
     end
 
