@@ -1,7 +1,7 @@
 module TwitterClient
-  class Token
-    NUMBER_OF_APPS = 3
+  NUMBER_OF_APPS = 3
 
+  class Token
     attr_accessor :consumer_key, :consumer_secret, :access_token,
       :access_token_secret, :last_call_at, :rate_limit_reset_in
 
@@ -10,7 +10,6 @@ module TwitterClient
     end
 
     def ready?
-      return true if rate_limit_reset_in.nil?
       ready_in == 0
     end
 
@@ -23,14 +22,13 @@ module TwitterClient
       end
     end
 
-    def prepare_to_call!
-      self.last_call_at = Time.now
-    end
-
     class << self
       def cycle!
-        puts "cycle token"
-        @current = next_client_token
+        puts "\n## cycle token"
+        p 'current', @current.consumer_key, @current.ready_in
+        p 'next', self.next.consumer_key, self.next.ready_in
+
+        @current = self.next
       end
 
       def current
@@ -38,20 +36,15 @@ module TwitterClient
       end
 
       def next
-        next_index = all.index(current) + 1
-        if next_index >= all.size
-          all.at(0)
-        else
-          all.at(next_index)
-        end
+        all.sort_by{ |token| token.ready_in }.first
       end
 
       def all
         @all ||= 1.upto(NUMBER_OF_APPS).map do |app_number|
           Token.new.tap do |token|
-            token.consumer_key = ENV["TWITTER_CONSUMER_KEY_#{ app_number }"],
-            token.consumer_secret = ENV["TWITTER_CONSUMER_SECRET_#{ app_number }"],
-            token.access_token = ENV["TWITTER_ACCESS_TOKEN_#{ app_number }"],
+            token.consumer_key = ENV["TWITTER_CONSUMER_KEY_#{ app_number }"]
+            token.consumer_secret = ENV["TWITTER_CONSUMER_SECRET_#{ app_number }"]
+            token.access_token = ENV["TWITTER_ACCESS_TOKEN_#{ app_number }"]
             token.access_token_secret = ENV["TWITTER_ACCESS_TOKEN_SECRET_#{ app_number }"]
           end
         end
